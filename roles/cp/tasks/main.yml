@@ -1,0 +1,21 @@
+---
+- name: "Deploiement conf"
+  include_tasks: "deploy_conf.yml"
+  vars:
+    env: "qa"
+  tags:
+  - "conf"
+
+- name: "Deploiement jar qa"
+  include_tasks: "deploy_app.yml"
+  vars:
+    env: "qa"
+  tags:
+  - "jar"
+
+- name: "Restart components"
+  include_tasks: "restart.yml"
+  vars:
+    env: "qa"
+  tags:
+  - "restart"

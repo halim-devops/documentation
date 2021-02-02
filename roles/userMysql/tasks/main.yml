@@ -1,0 +1,9 @@
+---
+- name: "Create user"
+  include_tasks: "create_user.yml"
+  tags:
+  - "create"
+- name: "Delete user"
+  include_tasks: "delete_user.yml"
+  tags:
+    - "delete"

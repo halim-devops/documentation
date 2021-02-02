@@ -1,0 +1,12 @@
+---
+- name: "Define components variables"
+  include_tasks: "subtasks/define_component_variables.yml"
+  tags: "always"
+
+- name: "Include deploy jar script"
+  include_tasks: "subtasks/deploy_jar.yml"
+  tags: "always"
+
+- name: "Include deploy ui script"
+  include_tasks: "subtasks/deploy_ui.yml"
+  tags: "always"

@@ -1,0 +1,5 @@
+---
+- name: "Update ansible repository"
+  git:
+    repo: "{{ git_repository }}"
+    dest: /home/wit/ansible

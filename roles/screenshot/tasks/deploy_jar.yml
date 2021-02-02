@@ -1,0 +1,22 @@
+---
+- name: "Delete previous jar"
+  become: true
+  file:
+    dest: "{{ path_jar_screenshot }}/screenshot-batch.jar"
+    force: "yes"
+    state: "absent"
+  tags:
+    - "jar"
+
+- name: Download jar file
+  become: true
+  get_url:
+    url: "{{ path_artifacts_screenshot }}/{{ jar_version }}/screenshot-batch-{{ jar_version }}.jar"
+    dest: "{{ path_jar_screenshot }}/screenshot-batch.jar"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    force: "yes"
+  register: "jar_file"
+  tags:
+    - "jar"

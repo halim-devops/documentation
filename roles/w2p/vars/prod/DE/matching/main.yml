@@ -1,0 +1,5 @@
+---
+workit_conf_path: "/etc/workit/w2p/v4"
+RAM: "3"
+PLATFORMID: "BGB_DE"
+ROLE: "MATCHING"

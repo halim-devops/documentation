@@ -1,0 +1,14 @@
+---
+- name: restart-java-service
+  become: true
+  service:
+    name: "{{ module }}"
+    state: restarted
+  when: ansible_hostname is not search("cplweb")
+
+- name: restart-ui
+  become: true
+  service:
+    name: "apache2"
+    state: restarted
+  when: ansible_hostname is search("cplweb")

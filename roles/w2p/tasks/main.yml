@@ -1,0 +1,10 @@
+---
+- name: "Deploy tomcat9 service"
+  include_tasks: "deploy_tomcat9_service.yml"
+  tags:
+    - "service_conf_deploy"
+    -
+- name: "Deploy conf"
+  include_tasks: "deploy_conf.yml"
+  tags:
+    - "conf"

@@ -1,0 +1,45 @@
+---
+- name: "Define admin-services variables"
+  when: ansible_hostname is search("cplads")
+  set_fact:
+    module: admin-services
+    artifact_name: crawl-admin-services 
+  tags: always
+
+- name: "Define manager variables"
+  when: ansible_hostname is search("cplmgr")
+  set_fact:
+    module: manager
+    artifact_name: manager-core
+  tags: always
+
+- name: "Define processor variables"
+  when: ansible_hostname is search("cplproc")
+  set_fact: module="processor"
+  tags: always
+
+- name: "Define statistics-builder variables"
+  when: ansible_hostname is search("cplsmg")
+  set_fact:
+    module: statistics-builder
+    artifact_name: statisticsbuilder
+  tags: always
+
+- name: "Define warning-generation-service variables"
+  when: ansible_hostname is search("cplale")
+  set_fact:
+    module: warning-generation-service
+    artifact_name: warninggenerationservice
+  tags: always
+
+- name: "Define offer-adaptor variables"
+  when: ansible_hostname is search("cplofa")
+  set_fact:
+    module: offer-adaptor
+    artifact_name: w2p-specific
+  tags: always
+
+- name: "Define ui variables"
+  when: ansible_hostname is search("cplweb")
+  set_fact: module="crawl-ui"
+  tags: always

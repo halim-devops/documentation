@@ -1,0 +1,42 @@
+---
+- name: "Set Platform variable"
+  when: ansible_hostname is search("fr")
+  set_fact:
+    PF: FR
+  tags: always
+
+- name: "Set Platform variable"
+  when: ansible_hostname is search("uk")
+  set_fact:
+    PF: UK
+  tags: always
+
+- name: "Set Platform variable"
+  when: ansible_hostname is search("de")
+  set_fact:
+    PF: DE
+  tags: always
+
+- name: "Set Platform variable"
+  when: ansible_hostname is search("cg")
+  set_fact:
+    PF: CG
+  tags: always
+
+- name: "Set Platform variable"
+  when: ansible_hostname is search("ii")
+  set_fact:
+    PF: II
+  tags: always
+
+- name: "Set Platform variable"
+  when: ansible_hostname is search("it")
+  set_fact:
+    PF: IT
+  tags: always
+
+- name: "Set Platform variable"
+  when: ansible_hostname is search("ad")
+  set_fact:
+    PF: AD
+  tags: always

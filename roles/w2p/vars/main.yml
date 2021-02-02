@@ -1,0 +1,9 @@
+---
+ansible_become_pass: 'W@rk1T!!!'
+java_version: "openjdk-8-jdk-headless=8u181-b13-1ubuntu0.16.04.1"
+tomcat_version: "tomcat9"
+tomcat: "tomcat9"
+path_war_v4: "/var/lib/{{ tomcat }}/webapps"
+path_artifacts_wv4: "http://forge.workit.fr/artifactory/libs-release-local/com/workit/w2p-ui"
+git_path_wv4: "https://gitlab2.workit.fr/w2p/v4-configuration/raw/master/w2p-v4"
+workit_conf_path: "/etc/workit/w2p/v4"

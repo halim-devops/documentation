@@ -1,0 +1,33 @@
+---
+- name: "Download configuration file"
+  become: true
+  copy:
+    src: ../config/haproxy.cfg
+    dest: "{{ haproxy_conf_path }}"
+    owner: wit
+    group: wit
+    mode: '0644'
+  tags:
+    - "always"
+
+- name: "Add configuration"
+  become: true
+  lineinfile:
+    path: "{{ haproxy_conf_path }}"
+    line: "    server node1 pral-ins2pup01.workit.fr:300{{ item }}"
+    create: yes
+  with_sequence: start=1 end=9
+  tags:
+    - "always"
+
+- name: "Add configuration"
+  become: true
+  lineinfile:
+    path: "{{ haproxy_conf_path }}"
+    line: "    server node1 pral-ins2pup01.workit.fr:30{{ item }}"
+    create: yes
+  with_sequence: start=10 end=60
+  notify:
+    - restart-haproxy
+  tags:
+    - "always"

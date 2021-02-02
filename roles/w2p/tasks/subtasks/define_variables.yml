@@ -1,0 +1,55 @@
+---
+- name: "Set ENV"
+  set_fact:
+    ENV: "prod"
+  when: ansible_hostname[:2] == 'pr'
+  tags:
+    - "always"
+
+- name: "Set ENV"
+  set_fact:
+    ENV: "crawl-test"
+  when: ansible_hostname[:2] == 'ct'
+  tags:
+    - "always"
+
+- name: "Set ENV"
+  set_fact:
+    ENV: "qa"
+  when: ansible_hostname[:2] == 'qa'
+  tags:
+    - "always"
+
+- name: "Set PLATFORM"
+  set_fact:
+    PLATFORM: "ADHOC"
+  when: ansible_hostname[2:4] == 'ad'
+  tags:
+    - "always"
+
+- name: "Set PLATFORM"
+  set_fact:
+    PLATFORM: "{{ ansible_hostname[2:4]|upper }}"
+  when: ansible_hostname[2:4] != 'ad'
+  tags:
+    - "always"
+- name: "Set JOB"
+  set_fact:
+    JOB: "crawl"
+  when: ansible_hostname[8:11] == 'cwl'
+  tags:
+    - "always"
+
+- name: "Set JOB"
+  set_fact:
+    JOB: "arbo"
+  when: ansible_hostname[8:11] == 'arb'
+  tags:
+    - "always"
+
+- name: "Set JOB"
+  set_fact:
+    JOB: "matching"
+  when: ansible_hostname[8:11] == 'mat'
+  tags:
+    - "always"

@@ -1,0 +1,20 @@
+#
+# FILEBEAT CONFIGURATION FOR BACK JSON LONG
+filebeat:
+  prospectors:
+    - input_type: log
+      paths:
+        - /var/log/workit/w2p/engine_stats.log.json
+      tags: ["ENGINE_ERROR"]
+      fields:
+        platform: {{PF}}
+
+processors:
+  - decode_json_fields:
+      fields: ['message']
+      target: json
+      overwrite_keys: true
+
+output:
+  logstash:
+    hosts: ["pral-mutlogs01.workit.fr:5044"]

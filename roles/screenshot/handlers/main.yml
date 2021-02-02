@@ -1,0 +1,16 @@
+---
+- name: clean-puppeteer-instances
+  command: pkill -f node
+
+- name: restart-screenshot-services
+  become: true
+  service:
+    name: "screenshot-{{ item }}"
+    state: restarted
+  with_sequence: start=1 end=60
+
+- name: restart-haproxy
+  become: true
+  service:
+    name: "haproxy"
+    state: restarted

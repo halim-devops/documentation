@@ -1,0 +1,28 @@
+---
+- name: "Define components variables"
+  include_tasks: "subtasks/define_variables.yml"
+  tags:
+    - "always"
+
+- name: "Include platform vars"
+  include_vars: "{{ ENV }}/{{ PLATFORM }}/{{ JOB }}/main.yml"
+  tags:
+    - "always"
+
+- name: "Deploy tomcat9 template"
+  become: yes
+  template:
+    src: "../files/tomcat9.service"
+    dest: "/lib/systemd/system/tomcat9.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  tags:
+    - "always"
+
+- name: "Reload service configuration"
+  become: yes
+  systemd:
+    daemon_reload: yes
+  tags:
+    - "always"

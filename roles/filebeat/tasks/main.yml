@@ -1,0 +1,5 @@
+---
+- name: "Deploy conf"
+  include_tasks: "deploy_conf.yml"
+  tags:
+    - "conf"

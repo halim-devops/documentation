@@ -1,0 +1,41 @@
+---
+    
+- name: find previous jars
+  find:
+    paths: "{{ jar_path }}"
+    patterns: "{{ artifact_id }}-*.jar"
+  register: jars_to_delete
+  tags:
+    - "jar"
+
+- name: delete previous jars
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ jars_to_delete.files }}"
+  tags:
+    - "jar"
+    
+- name: download jar export
+  get_url:
+    url: "{{ artifactory_base }}/{{ jar_version }}/{{ artifact_id }}-{{ jar_version }}.jar"
+    dest: "{{ jar_path }}"
+  when: artifact_id == "exporter"
+  tags:
+    - "jar"
+
+- name: Download jar file metrics or sender
+  get_url:
+    url: "{{ artifactory_base }}/{{ jar_version }}/{{ artifact_id }}-{{ jar_version }}.jar"
+    dest: "{{ jar_path }}"
+  when: artifact_id == "metrics" or artifact_id == "sender"
+  tags:
+    - "jar"
+    
+- name: Create a symbolic link
+  file:
+    src: "{{ jar_path }}/{{ artifact_id}}-{{ jar_version }}.jar"
+    dest: "{{ jar_path }}/{{ artifact_id }}.jar"
+    state: link
+  tags:
+    - "jar"

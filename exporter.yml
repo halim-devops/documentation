@@ -1,0 +1,4 @@
+- hosts: exporter
+  become: true
+  roles:
+  - "exporter"

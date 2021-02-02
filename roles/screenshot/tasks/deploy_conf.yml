@@ -1,0 +1,16 @@
+---
+- name: "Download configuration files"
+  become: true
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    validate_certs: false
+    force: "yes"
+  loop:
+  - { url: "{{ git_path_screenshot }}/logback-prod.xml", dest: "{{ path_conf_screenshot }}/logback.xml", owner: "wit", group: "wit", mode: "644"}
+  - { url: "{{ git_path_screenshot }}/application-prod.properties", dest: "{{ path_conf_screenshot }}/application.properties", owner: "wit", group: "wit", mode: "644"}
+  tags:
+  - "always"

@@ -1,0 +1,6 @@
+---
+- hosts: allmys
+  become: true
+  become_user: wit
+  roles:
+  - userMysql

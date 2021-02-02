@@ -1,0 +1,6 @@
+---
+- hosts: cp-mng
+  become: true
+  become_user: wit
+  roles:
+  - userMongo

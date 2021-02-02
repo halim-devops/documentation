@@ -1,0 +1,12 @@
+---
+#component_name_on_artifactory: 'statisticsbuilder'
+#component: 'statisticsbuilder'
+
+# difference to fix
+#component_service_prod: 'statistics-builder'
+#component_service_ct: 'crawl-statistics-builder'
+
+git_conf_files_path: 'https://gitlab2.workit.fr/cp/configuration/raw/master/crawl'
+files_conf_path: '/etc/workit/crawl'
+jar_path: '/usr/lib/workit/crawl'
+artifact_path: 'http://forge.workit.fr/artifactory/libs-release-local/com/workit/crawl'

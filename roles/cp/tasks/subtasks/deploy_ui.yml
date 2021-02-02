@@ -1,0 +1,32 @@
+---
+- name: "Download ZIP file from Artifactory server"
+  get_url:
+    url: "{{ artifact_path }}/{{ module }}-{{ jar_version }}.zip"
+    dest: "/tmp/{{ module }}-{{ jar_version }}.zip"
+  when: ansible_hostname is search("cplweb")
+  tags: always
+
+- name: "Clean previous files"
+  become: true
+  file:
+    path: "/var/www/crawl-platform/crawl-ui/*"
+    force: "yes"
+    state: "absent"
+  when: ansible_hostname is search("cplweb")
+  tags: always
+
+- name: "Deploy ZIP file"
+  unarchive:
+    src: "/tmp/{{ module }}-{{ jar_version }}.zip"
+    dest: "/var/www/crawl-platform/crawl-ui"
+    remote_src: yes
+  when: ansible_hostname is search("cplweb")
+  tags: always
+
+- name: Delete temporary ZIP file
+  file:
+    path: "/tmp/{{ module }}-{{ jar_version }}.zip"
+    state: absent
+  when: ansible_hostname is search("cplweb")
+  notify: restart-ui
+  tags: always

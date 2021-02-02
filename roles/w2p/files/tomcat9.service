@@ -1,0 +1,25 @@
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/run/tomcat9
+ExecStartPre=/bin/chown tomcat9:tomcat9 -R /var/run/tomcat9
+Environment=JAVA_HOME=/usr/lib/jvm/jdk
+Environment=CATALINA_PID=/var/run/tomcat9/tomcat9.pid
+Environment=CATALINA_HOME=/usr/share/tomcat9
+Environment=CATALINA_BASE=/var/lib/tomcat9
+Environment='CATALINA_OPTS=-Xms{{ RAM }}g -Xmx{{ RAM }}g -server -server -XX:+UseG1GC -Dlogback.configurationFile=/etc/workit/w2p/v4/logback.xml -Dconf.base=/etc/workit/w2p/v4'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/mnt/nas-e1/crash -XX:OnOutOfMemoryError="service tomcat restart" -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.port=18080 -Dcom.sun.management.jmxremote.authenticate=false -Dspring.profiles.active=datasource_hikaricp,SSO_CAS,BACK_OFFICE,{{ ROLE }} -Dplatform.id={{ PLATFORMID }} -Dhost.id={{ ansible_default_ipv4.address|regex_replace('\\.') }} -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n'
+ExecStart=/usr/share/tomcat9/bin/startup.sh
+ExecStop=/usr/share/tomcat9/bin/shutdown.sh
+
+User=tomcat9
+Group=tomcat9
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

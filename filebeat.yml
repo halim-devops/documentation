@@ -1,0 +1,4 @@
+---
+- hosts: prcgwv4_cwl
+  roles:
+    - "filebeat"

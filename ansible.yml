@@ -1,0 +1,4 @@
+---
+- hosts: ansible_server
+  roles:
+  - "ansible"

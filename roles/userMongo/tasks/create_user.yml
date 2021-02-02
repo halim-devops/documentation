@@ -1,0 +1,14 @@
+---
+- name: "Create mongo user"
+  become: yes
+  become_user: wit
+  mongodb_user:
+    login_database: admin
+    login_user: "{{ admin_user }}"
+    login_password: "{{ admin_password }}"
+    database: admin
+    name: "{{ user }}"
+    password: "{{ password }}"
+    roles: "witDev"
+  tags:
+  - "create"

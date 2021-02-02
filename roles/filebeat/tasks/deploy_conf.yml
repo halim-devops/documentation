@@ -1,0 +1,15 @@
+---
+- name: "Define components variables"
+  include_tasks: "subtasks/define_variables.yml"
+  tags:
+  - "always"
+
+- name: "Download configuration"
+  become: yes
+  template:
+    src: '../config/filebeat.yml'
+    dest: '/etc/filebeat/filebeat.yml'
+  notify:
+    - restart-filebeat
+  tags:
+  - "always"

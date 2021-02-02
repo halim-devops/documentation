@@ -1,0 +1,33 @@
+---
+- name: "Deploiement conf Screenshot"
+  include_tasks: "deploy_conf.yml"
+  tags:
+    - "conf"
+
+- name: "Deploiement version Screenshot"
+  include_tasks: "deploy_jar.yml"
+  tags:
+    - "jar"
+
+- name: "Clean puppeteer instances and restart screenshot services"
+  command: echo "redeploying screenshot instances"
+  notify:
+  - clean-puppeteer-instances
+  - restart-screenshot-services
+  tags:
+  - "redeploy-screenshots"
+
+- name: "Deploy haproxy conf"
+  include_tasks: "deploy_haproxy_conf.yml"
+  tags:
+    - "deploy_haproxy_conf"
+
+- name: "Update and restart screenshot services"
+  git:
+    repo: "{{ screenshot_repository }}"
+    dest: "{{ screenshot_repository_path }}"
+  notify:
+  - clean-puppeteer-instances
+  - restart-screenshot-services
+  tags:
+  - "update-screenshots"

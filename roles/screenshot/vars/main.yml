@@ -1,0 +1,9 @@
+---
+path_jar_screenshot: "/opt/workit/screenshot"
+path_conf_screenshot: "/etc/workit/screenshot"
+path_artifacts_screenshot: "http://forge.workit.fr/artifactory/libs-release-local/com/workit/screenshot-batch"
+path_artifacts_screenshot_snapshot: "http://forge.workit.fr/artifactory/libs-snapshot-local/com/workit/screenshot-batch"
+git_path_screenshot: "https://gitlab2.workit.fr/hp/screenshot-batch/raw/master/src/main/resources"
+screenshot_repository: "ssh://git@gitlab2.workit.fr:23/hp/screenshot-puppeteer.git"
+screenshot_repository_path: "/home/wit/screenshot-puppeteer"
+haproxy_conf_path: "/etc/haproxy/haproxy.cfg"

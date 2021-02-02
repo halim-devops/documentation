@@ -1,0 +1,35 @@
+---
+- name: "Delete previous jar"
+  become: true
+  file:
+    dest: "{{ jar_path }}/{{ module }}.jar"
+    force: "yes"
+    state: "absent"
+  when: ansible_hostname is not search("cplweb")
+  tags: always
+
+- name: Download jar file
+  become: true
+  get_url:
+    url: "{{ artifact_path }}/{{ artifact_name }}/{{ jar_version }}/{{ artifact_name }}-{{ jar_version }}.jar"
+    dest: "{{ jar_path }}/{{ module }}/{{ module }}.jar"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    force: "yes"
+  when: ansible_hostname is not search("cplweb") and artifact_name is defined
+  notify: restart-java-service
+  tags: always
+
+- name: Download jar file
+  become: true
+  get_url:
+    url: "{{ artifact_path }}/{{ module }}/{{ jar_version }}/{{ module }}-{{ jar_version }}.jar"
+    dest: "{{ jar_path }}/{{ module }}/{{ module }}.jar"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    force: "yes"
+  when: ansible_hostname is not search("cplweb") and artifact_name is undefined
+  notify: restart-java-service
+  tags: always

@@ -1,0 +1,10 @@
+---
+- name: "Define components variables"
+  include_tasks: "subtasks/define_component_variables.yml"
+  tags: "always"
+
+- name: "Restart components"
+  command: echo "Restart component"
+  notify:
+  - restart-java-service
+  - restart-ui

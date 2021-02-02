@@ -1,0 +1,14 @@
+---
+- name: "Create mysql user"
+  become: yes
+  become_user: wit
+  mysql_user:
+    login_user: "{{ admin_user }}"
+    login_password: "{{ admin_password }}"
+    login_host: "{{ ansible_host }}"
+    name: "{{ user }}"
+    password: "{{ password }}"
+    priv: "*.*:SELECT,SHOW DATABASES"
+    host: "%"
+  tags:
+  - "create"

@@ -1,0 +1,49 @@
+---
+- name: "Define components variables"
+  include_tasks: "subtasks/define_variables.yml"
+  tags:
+    - "always"
+
+- name: "Include platform vars"
+  include_vars: "{{ ENV }}/{{ PLATFORM }}/{{ JOB }}/main.yml"
+  tags:
+    - "always"
+
+- name: "Deploy logback.xml"
+  become: yes
+  get_url:
+    url: "{{ git_path_wv4 }}/{{ ENV }}/common/etc/workit/w2p/v4/logback.xml"
+    dest: "{{ workit_conf_path }}/logback.xml"
+    owner: "root"
+    group: "root"
+    mode: "0664"
+    validate_certs: false
+    force: "yes"
+  tags:
+    - "logback.xml"
+
+- name: "Deploy workit.functional.properties"
+  become: yes
+  get_url:
+    url: "{{ git_path_wv4 }}/{{ ENV }}/{{ PLATFORM }}/{{ JOB }}/etc/workit/w2p/v4/workit.functional.properties"
+    dest: "{{ workit_conf_path }}/workit.functional.properties"
+    owner: "root"
+    group: "root"
+    mode: "0664"
+    validate_certs: false
+    force: "yes"
+  tags:
+    - "workit.functional.properties"
+
+- name: "Deploy workit.functional.properties"
+  become: yes
+  get_url:
+    url: "{{ git_path_wv4 }}/{{ ENV }}/{{ PLATFORM }}/{{ JOB }}/etc/workit/w2p/v4/workit.datasources.properties"
+    dest: "{{ workit_conf_path }}/workit.datasources.properties"
+    owner: "root"
+    group: "root"
+    mode: "0664"
+    validate_certs: false
+    force: "yes"
+  tags:
+    - "workit.datasources.properties"

@@ -1,0 +1,23 @@
+---
+  
+- name: Copy a new configuration logging.properties
+  become: yes
+  copy:
+    src: ../configuration/logging.properties
+    dest: /etc/tomcat9/logging.properties
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes 
+  notify: restart-tomcat9  
+
+- name: Copy a new configuration server.xml
+  become: yes
+  copy:
+    src: ../configuration/server.xml
+    dest: /etc/tomcat9/server.xml
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes  
+  notify: restart-tomcat9    
